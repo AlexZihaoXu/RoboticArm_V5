@@ -1,0 +1,3 @@
+/Users/alex/CLionProjects/RoboticArm_V5/cmake-build-debug/CMakeFiles/RoboticArm_V4.elf.dir
+/Users/alex/CLionProjects/RoboticArm_V5/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/alex/CLionProjects/RoboticArm_V5/cmake-build-debug/CMakeFiles/rebuild_cache.dir
