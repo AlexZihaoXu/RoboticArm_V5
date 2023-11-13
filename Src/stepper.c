@@ -83,7 +83,7 @@ void nemaTickMotors(TIM_HandleTypeDef *tim)
 
     }
     __HAL_TIM_SET_COUNTER(tim, 0);
-    while (__HAL_TIM_GET_COUNTER(tim) < 125);
+    while (__HAL_TIM_GET_COUNTER(tim) < 100);
 
     for (int i = 0; i < nemaCount; ++i) {
         struct NemaCache *nema = &nemasList[i];
@@ -97,7 +97,7 @@ void nemaTickMotors(TIM_HandleTypeDef *tim)
     }
 
     __HAL_TIM_SET_COUNTER(tim, 0);
-    while (__HAL_TIM_GET_COUNTER(tim) < 125);
+    while (__HAL_TIM_GET_COUNTER(tim) < 100);
 }
 
 void nemaHoming(TIM_HandleTypeDef *tim, Nema17 n, int steps)
@@ -110,10 +110,10 @@ void nemaHoming(TIM_HandleTypeDef *tim, Nema17 n, int steps)
     for (int i = 0; i < steps; ++i) {
         HAL_GPIO_WritePin(nema->stepAlpha, nema->stepNum, 1);
         __HAL_TIM_SET_COUNTER(tim, 0);
-        while (__HAL_TIM_GET_COUNTER(tim) < 200);
+        while (__HAL_TIM_GET_COUNTER(tim) < 150);
         HAL_GPIO_WritePin(nema->stepAlpha, nema->stepNum, 0);
         __HAL_TIM_SET_COUNTER(tim, 0);
-        while (__HAL_TIM_GET_COUNTER(tim) < 200);
+        while (__HAL_TIM_GET_COUNTER(tim) < 150);
     }
 }
 
@@ -135,11 +135,11 @@ void nemaSmoothTurn(TIM_HandleTypeDef *tim, Nema17 n, int steps, int duration)
 
             HAL_GPIO_WritePin(nema->stepAlpha, nema->stepNum, 0);
             __HAL_TIM_SET_COUNTER(tim, 0);
-            while (__HAL_TIM_GET_COUNTER(tim) < 200);
+            while (__HAL_TIM_GET_COUNTER(tim) < 150);
 
             HAL_GPIO_WritePin(nema->stepAlpha, nema->stepNum, 1);
             __HAL_TIM_SET_COUNTER(tim, 0);
-            while (__HAL_TIM_GET_COUNTER(tim) < 200);
+            while (__HAL_TIM_GET_COUNTER(tim) < 150);
         }
     }
 
