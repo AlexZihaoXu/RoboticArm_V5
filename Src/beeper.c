@@ -20,6 +20,7 @@ void setBeeper(int state)
 {
     if (beeperStatus != state) {
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, state);
+//        HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, 0);
         beeperStatus = state;
     }
 }

@@ -12,6 +12,8 @@
 
 typedef uint8_t Nema17;
 
+void stepGripper(int step);
+
 void gripperClose();
 
 void gripperOpen();

@@ -3,8 +3,8 @@
 
 
 #define ANGLE_ABSTRACTION_MAX_SPEED 90
-#define max(a, b) (a > b ? a : b)
-#define min(a, b) (a < b ? a : b)
+#define max(a, b) ((a) > (b) ? (a) : (b))
+#define min(a, b) ((a) < (b) ? (a) : (b))
 
 Nema17 m1, m2, m3, m4;
 

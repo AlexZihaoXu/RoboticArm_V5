@@ -6,77 +6,55 @@
 
 #include "angle_abstraction.h"
 #include "inverse_kinematics.h"
+#include "v5menu.h"
 
 void onSetup()
 {
     LCD_Init();
+
+//    LCD_ClearBlocking();
+//    LCD_SetCursorBlocking(0, 0);
+//    LCD_PrintBlocking("PLZ POSE THE ARM");
+//    HAL_Delay(1);
+//    LCD_SetCursorBlocking(1, 0);
+//    LCD_PrintBlocking("BEFORE POWER ON!");
+//    HAL_Delay(1000);
+//    LCD_ClearBlocking();
+//    LCD_PrintBlocking("Initializing ...");
     HAL_TIM_Base_Start(&htim1);
-    gripperHoming();
+//    gripperHoming();
     angleAbstractionInit();
+    initMenu();
+//
+//    beeperBeep(80, 150);
+//    beeperBeep(80, 150);
+//    beeperBeep(80, 150);
+    HAL_TIM_Base_Start(&htim3);
+    for (int i = 0; i < 2; ++i) {
+        HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_3);
+        int x;
+        for (x = 0; x < 6000; x = x + 5) {
+            __HAL_TIM_SET_AUTORELOAD(&htim3, x * 2);
+            __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_3, x);
+            HAL_Delay(1);
+        }
+        HAL_TIM_PWM_Stop(&htim3, TIM_CHANNEL_3);
+        LCD_PrintBlocking("Done.");
+        HAL_Delay(1000);
+        LCD_PrintBlocking("Again.");
+    }
 
-    beeperBeep(80, 150);
-    beeperBeep(80, 150);
-    beeperBeep(80, 150);
-
+    LCD_ClearBlocking();
 
 }
-
-long lastPrintTick = 0;
-long lastLCDTick = 0;
-
-
-int buttonDown = 0;
-int actionID = 0;
-
-
-void performAction(double now, double dt);
 
 
 void onUpdate(long now, long dt)
 {
-
-    if (joystickBtn != buttonDown) {
-        buttonDown = joystickBtn;
-        if (buttonDown) {
-            actionID++;
-            beeperBeep(80, 0);
-        }
-    }
-
-    if (now - lastPrintTick > 1000 / 4) {
-        lastPrintTick = now;
-        LCD_Clear();
-        char s[16];
-        sprintf(s, "ActionID = %d", actionID);
-        LCD_Print(s);
-    }
-    if (now - lastLCDTick >= 1) {
-        LCD_TickQueue();
-        lastLCDTick = now;
-    }
+    v5menuTick(now / 1000.0, dt / 1000.0);
 
     gripperTickMotor(now);
     angleSysTick(dt / 1000.0);
     nemaTickMotors(&htim1);
     beeperSchedulerTick(dt);
-    performAction(now / 1000.0, dt / 1000.0);
-}
-
-void performAction(double now, double dt)
-{
-
-    if (actionID == 0) {
-        angleSet(0, 0);
-        angleSet(1, 0);
-        angleSet(2, 90);
-        angleSet(3, 90);
-    } else if (actionID == 1) {
-        double t = now * 1.75;
-        double r = 8;
-
-        setPosition(cos(t) * r, 19 + sin(t) * r, 4.5);
-
-    } else {
-        actionID = 0;
-    }
 }
