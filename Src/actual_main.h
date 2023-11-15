@@ -12,46 +12,26 @@ void onSetup()
 {
     LCD_Init();
 
-//    LCD_ClearBlocking();
-//    LCD_SetCursorBlocking(0, 0);
-//    LCD_PrintBlocking("PLZ POSE THE ARM");
-//    HAL_Delay(1);
-//    LCD_SetCursorBlocking(1, 0);
-//    LCD_PrintBlocking("BEFORE POWER ON!");
-//    HAL_Delay(1000);
-//    LCD_ClearBlocking();
-//    LCD_PrintBlocking("Initializing ...");
     HAL_TIM_Base_Start(&htim1);
-//    gripperHoming();
     angleAbstractionInit();
     initMenu();
-//
-//    beeperBeep(80, 150);
-//    beeperBeep(80, 150);
-//    beeperBeep(80, 150);
-    HAL_TIM_Base_Start(&htim3);
-    for (int i = 0; i < 2; ++i) {
-        HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_3);
-        int x;
-        for (x = 0; x < 6000; x = x + 5) {
-            __HAL_TIM_SET_AUTORELOAD(&htim3, x * 2);
-            __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_3, x);
-            HAL_Delay(1);
-        }
-        HAL_TIM_PWM_Stop(&htim3, TIM_CHANNEL_3);
-        LCD_PrintBlocking("Done.");
-        HAL_Delay(1000);
-        LCD_PrintBlocking("Again.");
-    }
 
-    LCD_ClearBlocking();
+    beeperBeepBlocking(5650, 90);
+    beeperBeepBlocking(5750, 90);
+    beeperBeepBlocking(5800, 90);
 
 }
 
 
 void onUpdate(long now, long dt)
 {
-    v5menuTick(now / 1000.0, dt / 1000.0);
+//    v5menuTick(now / 1000.0, dt / 1000.0);
+    char content[16];
+    sprintf(content, "count: %.2f", highResolutionNow);
+    delay(100);
+    LCD_ClearBlocking();
+    LCD_PrintBlocking(content);
+
 
     gripperTickMotor(now);
     angleSysTick(dt / 1000.0);

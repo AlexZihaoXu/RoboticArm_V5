@@ -6,35 +6,66 @@
 
 struct BeeperTask
 {
+    int beepTone;
     int beepTick;
     int delayTick;
 };
 
-#define BEEPER_SCHEDULER_QUEUE_SIZE 32
+#define BEEPER_SCHEDULER_QUEUE_SIZE 1024
 struct BeeperTask beeperSchedulerQueue[BEEPER_SCHEDULER_QUEUE_SIZE];
 int beeperSchedulerReadIndex = 0;
 int beeperSchedulerWriteIndex = 0;
 int beeperStatus = 0;
+int stopped = 0;
+TIM_HandleTypeDef *htimRef;
 
-void setBeeper(int state)
+void setBeeper(int value)
 {
-    if (beeperStatus != state) {
-        HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, state);
-//        HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, 0);
-        beeperStatus = state;
+    if (beeperStatus != value) {
+        beeperStatus = value;
+
+
+        if (value != 0) {
+            int x = 6000 - value;
+            x = x < 0 ? 0 : x > 6000 ? 6000 : x;
+            HAL_TIM_PWM_Stop(htimRef, TIM_CHANNEL_3);
+            __HAL_TIM_SET_AUTORELOAD(htimRef, x * 2);
+            __HAL_TIM_SET_COMPARE(htimRef, TIM_CHANNEL_3, x);
+            HAL_TIM_PWM_Start(htimRef, TIM_CHANNEL_3);
+        }
+
+        if (value == 0 && !stopped) {
+            HAL_TIM_PWM_Stop(htimRef, TIM_CHANNEL_3);
+            HAL_TIM_Base_Stop(htimRef);
+            stopped = 1;
+            return;
+        } else if (stopped) {
+            stopped = 0;
+            HAL_TIM_Base_Start(htimRef);
+            HAL_TIM_PWM_Start(htimRef, TIM_CHANNEL_3);
+        }
+
+
     }
 }
 
-void beeperInit()
+void beeperInit(TIM_HandleTypeDef *htim)
 {
-    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, 0);
+    htimRef = htim;
+    HAL_TIM_Base_Start(htim);
     beeperStatus = 0;
+    stopped = 1;
 }
 
-void beeperBeepBlocking(int duration) {
-    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, 1);
+void beeperBeepBlocking(int tune, int duration)
+{
+    HAL_TIM_PWM_Start(htimRef, TIM_CHANNEL_3);
+    int x = 6000 - tune;
+    x = x < 0 ? 0 : x > 6000 ? 6000 : x;
+    __HAL_TIM_SET_AUTORELOAD(htimRef, x * 2);
+    __HAL_TIM_SET_COMPARE(htimRef, TIM_CHANNEL_3, x);
     HAL_Delay(duration);
-    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, 0);
+    HAL_TIM_PWM_Stop(htimRef, TIM_CHANNEL_3);
 }
 
 void beeperSchedulerTick(int dt)
@@ -45,7 +76,7 @@ void beeperSchedulerTick(int dt)
             task->delayTick -= dt;
             setBeeper(0);
         } else if (task->beepTick > 0) {
-            setBeeper(1);
+            setBeeper(task->beepTone);
             task->beepTick -= dt;
         } else {
             beeperSchedulerReadIndex++;
@@ -62,11 +93,12 @@ void beeperSchedulerTick(int dt)
     }
 }
 
-void beeperBeep(int duration, int delay)
+void beeperBeep(int tune, int duration, int delay)
 {
     struct BeeperTask *task = &beeperSchedulerQueue[beeperSchedulerWriteIndex];
-    task->beepTick = duration;
-    task->delayTick = delay;
+    task->beepTick = 5 < duration ? duration : 5;
+    task->delayTick = 5 < delay ? delay : 5;
+    task->beepTone = tune;
     beeperSchedulerWriteIndex++;
     if (beeperSchedulerWriteIndex >= BEEPER_SCHEDULER_QUEUE_SIZE) {
         beeperSchedulerWriteIndex = 0;

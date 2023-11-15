@@ -189,9 +189,15 @@ void renderMenu(double now, double dt)
 
 void joystickYChange(int change)
 {
-    beeperBeep(50, 0);
-    if (currentStatus == IN_MENU)
+    if (currentStatus == IN_MENU) {
         currentPage += change;
+        if (0 <= currentPage && currentPage < totalPages) {
+            beeperBeep(5750, 100, 90);
+        } else {
+            beeperBeep(5450, 120, 30);
+            beeperBeep(5450, 120, 30);
+        }
+    }
 }
 
 void joystickXChange(int change)
@@ -199,12 +205,13 @@ void joystickXChange(int change)
     if (change == 1) {
         if (currentStatus == IN_MENU) {
             currentStatus = IN_SETTINGS;
-            beeperBeep(50, 0);
+            beeperBeep(5550, 100, 80);
+            beeperBeep(5650, 100, 80);
         }
     } else if (change == -1 && currentStatus == IN_SETTINGS) {
         currentStatus = IN_MENU;
-        beeperBeep(50, 200);
-        beeperBeep(50, 200);
+        beeperBeep(5650, 100, 70);
+        beeperBeep(5550, 100, 70);
     }
 }
 
