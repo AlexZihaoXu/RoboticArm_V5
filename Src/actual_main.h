@@ -16,23 +16,24 @@ void onSetup()
     angleAbstractionInit();
     initMenu();
 
-    beeperBeepBlocking(5650, 90);
-    beeperBeepBlocking(5750, 90);
-    beeperBeepBlocking(5800, 90);
+    beeperBeepBlocking(850, 90);
+    beeperBeepBlocking(960, 90);
+    beeperBeepBlocking(1100, 90);
 
 }
 
 
 void onUpdate(long now, long dt)
 {
-//    v5menuTick(now / 1000.0, dt / 1000.0);
-    char content[16];
-    sprintf(content, "count: %.2f", highResolutionNow);
-    delay(100);
-    LCD_ClearBlocking();
-    LCD_PrintBlocking(content);
+////    v5menuTick(now / 1000.0, dt / 1000.0);
+//    char content[16];
+//    sprintf(content, "count: %.2f", highResolutionNow);
+//    delay(100);
+//    LCD_ClearBlocking();
+//    LCD_PrintBlocking(content);
+//
 
-
+    v5menuTick(now, dt);
     gripperTickMotor(now);
     angleSysTick(dt / 1000.0);
     nemaTickMotors(&htim1);

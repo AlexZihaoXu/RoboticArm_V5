@@ -19,22 +19,23 @@ int beeperStatus = 0;
 int stopped = 0;
 TIM_HandleTypeDef *htimRef;
 
-void setBeeper(int value)
+void setBeeper(int freq)
 {
-    if (beeperStatus != value) {
-        beeperStatus = value;
+    if (beeperStatus != freq) {
+        beeperStatus = freq;
 
 
-        if (value != 0) {
-            int x = 6000 - value;
-            x = x < 0 ? 0 : x > 6000 ? 6000 : x;
+        if (freq != 0) {
+
             HAL_TIM_PWM_Stop(htimRef, TIM_CHANNEL_3);
-            __HAL_TIM_SET_AUTORELOAD(htimRef, x * 2);
-            __HAL_TIM_SET_COMPARE(htimRef, TIM_CHANNEL_3, x);
+
+            __HAL_TIM_SET_AUTORELOAD(htimRef, 4000000 / freq - 1);
+            __HAL_TIM_SET_COMPARE(htimRef, TIM_CHANNEL_3, 4000000 / freq / 2 - 1);
+
             HAL_TIM_PWM_Start(htimRef, TIM_CHANNEL_3);
         }
 
-        if (value == 0 && !stopped) {
+        if (freq == 0 && !stopped) {
             HAL_TIM_PWM_Stop(htimRef, TIM_CHANNEL_3);
             HAL_TIM_Base_Stop(htimRef);
             stopped = 1;
@@ -57,15 +58,18 @@ void beeperInit(TIM_HandleTypeDef *htim)
     stopped = 1;
 }
 
-void beeperBeepBlocking(int tune, int duration)
+void beeperBeepBlocking(int freq, int duration)
 {
+    HAL_TIM_Base_Start(htimRef);
     HAL_TIM_PWM_Start(htimRef, TIM_CHANNEL_3);
-    int x = 6000 - tune;
-    x = x < 0 ? 0 : x > 6000 ? 6000 : x;
-    __HAL_TIM_SET_AUTORELOAD(htimRef, x * 2);
-    __HAL_TIM_SET_COMPARE(htimRef, TIM_CHANNEL_3, x);
+
+    __HAL_TIM_SET_AUTORELOAD(htimRef, 4000000 / freq - 1);
+    __HAL_TIM_SET_COMPARE(htimRef, TIM_CHANNEL_3, 4000000 / freq / 2 - 1);
+
     HAL_Delay(duration);
+
     HAL_TIM_PWM_Stop(htimRef, TIM_CHANNEL_3);
+    HAL_TIM_Base_Stop(htimRef);
 }
 
 void beeperSchedulerTick(int dt)
@@ -93,12 +97,12 @@ void beeperSchedulerTick(int dt)
     }
 }
 
-void beeperBeep(int tune, int duration, int delay)
+void beeperBeep(int freq, int duration, int delay)
 {
     struct BeeperTask *task = &beeperSchedulerQueue[beeperSchedulerWriteIndex];
     task->beepTick = 5 < duration ? duration : 5;
     task->delayTick = 5 < delay ? delay : 5;
-    task->beepTone = tune;
+    task->beepTone = freq;
     beeperSchedulerWriteIndex++;
     if (beeperSchedulerWriteIndex >= BEEPER_SCHEDULER_QUEUE_SIZE) {
         beeperSchedulerWriteIndex = 0;

@@ -11,8 +11,8 @@ void beeperInit(TIM_HandleTypeDef* htim);
 
 void beeperSchedulerTick(int dt);
 
-void beeperBeep(int tune, int duration, int delay);
+void beeperBeep(int freq, int duration, int delay);
 
-void beeperBeepBlocking(int tune, int duration);
+void beeperBeepBlocking(int freq, int duration);
 
 #endif //ROBOTICARM_V4_BEEPER_H

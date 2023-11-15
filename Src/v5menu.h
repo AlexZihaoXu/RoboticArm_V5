@@ -192,10 +192,10 @@ void joystickYChange(int change)
     if (currentStatus == IN_MENU) {
         currentPage += change;
         if (0 <= currentPage && currentPage < totalPages) {
-            beeperBeep(5750, 100, 90);
+            beeperBeep(500, 100, 50);
         } else {
-            beeperBeep(5450, 120, 30);
-            beeperBeep(5450, 120, 30);
+            beeperBeep(250, 80, 25);
+            beeperBeep(250, 80, 25);
         }
     }
 }
@@ -205,13 +205,17 @@ void joystickXChange(int change)
     if (change == 1) {
         if (currentStatus == IN_MENU) {
             currentStatus = IN_SETTINGS;
-            beeperBeep(5550, 100, 80);
-            beeperBeep(5650, 100, 80);
+            beeperBeep(500, 50, 15);
+            beeperBeep(700, 50, 15);
+            beeperBeep(900, 50, 15);
+            beeperBeep(1100, 50, 10);
         }
     } else if (change == -1 && currentStatus == IN_SETTINGS) {
         currentStatus = IN_MENU;
-        beeperBeep(5650, 100, 70);
-        beeperBeep(5550, 100, 70);
+        beeperBeep(1100, 50, 15);
+        beeperBeep(900, 50, 15);
+        beeperBeep(700, 50, 15);
+        beeperBeep(500, 50, 10);
     }
 }
 
