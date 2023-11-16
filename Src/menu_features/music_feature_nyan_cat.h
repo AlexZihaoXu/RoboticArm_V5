@@ -1,54 +1,54 @@
-#ifndef ROBOTICARM_V4_MUSIC_FEATURE_H
-#define ROBOTICARM_V4_MUSIC_FEATURE_H
+#ifndef ROBOTICARM_V4_MUSIC_FEATURE_NYAN_CAT_H
+#define ROBOTICARM_V4_MUSIC_FEATURE_NYAN_CAT_H
 
 int nyanCatData[]; // pitch, duration, pause
 
-int notesIndex = 0;
-double pauseCounter = 0;
-int beeped = 0;
+int music_feature_nc_notesIndex = 0;
+double music_feature_nc_var_pauseCounter = 0;
+int music_feature_nc_var_beeped = 0;
 
-int music_feature_var_btnCache = 0;
-int music_feature_var_locked = 0;
-double music_feature_var_speed = 1;
+int music_feature_nc_var_btnCache = 0;
+int music_feature_nc_var_locked = 0;
+double music_feature_nc_var_speed = 1;
 
-int music_feature_run(double now, double dt)
+int music_feature_nyan_cat_run(double now, double dt)
 {
 
     sprintf(LCD_CONTENT_BUFFER[0], "Music: Nyan Cat");
-    sprintf(LCD_CONTENT_BUFFER[1], "Progress: %d%%", (int) (100 * (notesIndex / 1376.0)));
-    pauseCounter += dt * 1150 * music_feature_var_speed;
-    if (notesIndex < 1376) {
-        int i = notesIndex;
-        int note = (int) (nyanCatData[i] / music_feature_var_speed);
+    sprintf(LCD_CONTENT_BUFFER[1], "Progress: %d%%", (int) (100 * (music_feature_nc_notesIndex / 1376.0)));
+    music_feature_nc_var_pauseCounter += dt * 1150 * music_feature_nc_var_speed;
+    if (music_feature_nc_notesIndex < 1376) {
+        int i = music_feature_nc_notesIndex;
+        int note = (int) (nyanCatData[i] / music_feature_nc_var_speed);
         int duration = nyanCatData[i + 1];
         int pause = nyanCatData[i + 2];
 
         duration += 150;
         pause -= 150;
 
-        duration = (int) (duration / music_feature_var_speed);
-        pause = (int) (pause / music_feature_var_speed);
+        duration = (int) (duration / music_feature_nc_var_speed);
+        pause = (int) (pause / music_feature_nc_var_speed);
 
         if (pause < 0) {
             duration += pause;
             pause = 0;
         }
 
-        if (pauseCounter >= duration + pause) {
-            beeped = 0;
-            notesIndex += 3;
-            pauseCounter = 0;
+        if (music_feature_nc_var_pauseCounter >= duration + pause) {
+            music_feature_nc_var_beeped = 0;
+            music_feature_nc_notesIndex += 3;
+            music_feature_nc_var_pauseCounter = 0;
 
         } else {
-            if (!beeped) {
+            if (!music_feature_nc_var_beeped) {
                 beeperBeep(note, duration, pause);
-                beeped = 1;
+                music_feature_nc_var_beeped = 1;
             }
         }
     }
 
     if (joystickX < -.7) {
-        notesIndex = 0;
+        music_feature_nc_notesIndex = 0;
         return 1;
     }
 
@@ -56,13 +56,13 @@ int music_feature_run(double now, double dt)
 }
 
 
-int music_feature_settings(double now, double dt)
+int music_feature_nyan_cat_settings(double now, double dt)
 {
-    if (music_feature_var_btnCache != joystickBtn) {
-        music_feature_var_btnCache = joystickBtn;
+    if (music_feature_nc_var_btnCache != joystickBtn) {
+        music_feature_nc_var_btnCache = joystickBtn;
         if (joystickBtn) {
-            music_feature_var_locked = !music_feature_var_locked;
-            if (music_feature_var_locked) {
+            music_feature_nc_var_locked = !music_feature_nc_var_locked;
+            if (music_feature_nc_var_locked) {
                 beeperBeep(600, 50, 50);
                 beeperBeep(800, 50, 50);
             } else {
@@ -71,18 +71,18 @@ int music_feature_settings(double now, double dt)
             }
         }
     }
-    if (music_feature_var_locked) {
+    if (music_feature_nc_var_locked) {
         if (abs(joystickY) > .05) {
-            music_feature_var_speed += joystickY * dt * .15;
-            music_feature_var_speed = min(1.25, max(.75, music_feature_var_speed));
+            music_feature_nc_var_speed += joystickY * dt * .15;
+            music_feature_nc_var_speed = min(1.25, max(.75, music_feature_nc_var_speed));
         }
     } else if (joystickX < -0.7) {
         return MENU_BACK;
     }
-    if (music_feature_var_locked) {
-        sprintf(LCD_CONTENT_BUFFER[1], "Speed:[%.1f%%]", music_feature_var_speed * 100);
+    if (music_feature_nc_var_locked) {
+        sprintf(LCD_CONTENT_BUFFER[1], "Speed:[%.1f%%]", music_feature_nc_var_speed * 100);
     } else {
-        sprintf(LCD_CONTENT_BUFFER[1], "Speed:%.1f%%", music_feature_var_speed * 100);
+        sprintf(LCD_CONTENT_BUFFER[1], "Speed:%.1f%%", music_feature_nc_var_speed * 100);
     }
 
     return 0;
@@ -552,4 +552,4 @@ int nyanCatData[] = {
 };
 
 
-#endif //ROBOTICARM_V4_MUSIC_FEATURE_H
+#endif //ROBOTICARM_V4_MUSIC_FEATURE_NYAN_CAT_H

@@ -83,7 +83,8 @@ void addMenuOption(const char *name, int (*runPtr)(double, double), int (*settin
 #include "menu_features/alarm_feature.h"
 #include "menu_features/draw_circle_feature.h"
 #include "menu_features/calibrate_feature.h"
-#include "menu_features/music_feature.h"
+#include "menu_features/music_feature_nyan_cat.h"
+#include "menu_features/music_feature_rick_roll.h"
 
 void initMenu()
 {
@@ -91,7 +92,8 @@ void initMenu()
     addMenuOption("Free move", 0, 0);
     addMenuOption("Calibrate", calibrateFeatureRun, calibrateFeatureSettings);
     addMenuOption("Alarm", alarmFun, 0);
-    addMenuOption("Music", music_feature_run, music_feature_settings);
+    addMenuOption("Music: NC", music_feature_nyan_cat_run, music_feature_nyan_cat_settings);
+    addMenuOption("Music: RR", music_feature_rick_roll_run, music_feature_rick_roll_settings);
     addMenuOption("Circle", drawCircleFeature, drawCircleSettings);
     totalPages = menuOptionCount;
 }
