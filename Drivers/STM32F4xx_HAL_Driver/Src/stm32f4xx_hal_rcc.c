@@ -579,7 +579,7 @@ __weak HAL_StatusTypeDef HAL_RCC_OscConfig(RCC_OscInitTypeDef  *RCC_OscInitStruc
   *         (if the Clock Security System CSS is enabled).
   *
   * @note   A switch from one clock source to another occurs only if the target
-  *         clock source is ready (clock stable after startup delay or PLL locked).
+  *         clock source is ready (clock stable after startup delay or PLL draw_circle_var_locked).
   *         If a clock source which is not yet ready is selected, the switch will
   *         occur when the clock source will be ready.
   *

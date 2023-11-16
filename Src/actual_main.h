@@ -33,7 +33,7 @@ void onUpdate(long now, long dt)
 //    LCD_PrintBlocking(content);
 //
 
-    v5menuTick(now, dt);
+    v5menuTick(now / 1000.0, dt / 1000.0);
     gripperTickMotor(now);
     angleSysTick(dt / 1000.0);
     nemaTickMotors(&htim1);

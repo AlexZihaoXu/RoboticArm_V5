@@ -4,7 +4,7 @@
 #include <stdint.h>
 #include "stm32f4xx_hal_i2c.h"
 
-#define LCD_ASYNC_TRANSMISSION_QUEUE_SIZE 1024
+#define LCD_ASYNC_TRANSMISSION_QUEUE_SIZE 4096
 
 #define I2C_ADDR 0x27 // I2C address of the PCF8574
 #define RS_BIT 0 // Register select bit

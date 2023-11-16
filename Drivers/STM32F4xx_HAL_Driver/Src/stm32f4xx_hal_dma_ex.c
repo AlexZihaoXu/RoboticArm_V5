@@ -172,7 +172,7 @@ HAL_StatusTypeDef HAL_DMAEx_MultiBufferStart_IT(DMA_HandleTypeDef *hdma, uint32_
     return HAL_ERROR;
   }
   
-  /* Process locked */
+  /* Process draw_circle_var_locked */
   __HAL_LOCK(hdma);
   
   if(HAL_DMA_STATE_READY == hdma->State)

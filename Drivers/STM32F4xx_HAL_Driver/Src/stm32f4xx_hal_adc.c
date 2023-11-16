@@ -722,7 +722,7 @@ HAL_StatusTypeDef HAL_ADC_Start(ADC_HandleTypeDef* hadc)
   assert_param(IS_FUNCTIONAL_STATE(hadc->Init.ContinuousConvMode));
   assert_param(IS_ADC_EXT_TRIG_EDGE(hadc->Init.ExternalTrigConvEdge)); 
   
-  /* Process locked */
+  /* Process draw_circle_var_locked */
   __HAL_LOCK(hadc);
   
   /* Enable the ADC peripheral */
@@ -841,7 +841,7 @@ HAL_StatusTypeDef HAL_ADC_Stop(ADC_HandleTypeDef* hadc)
   /* Check the parameters */
   assert_param(IS_ADC_ALL_INSTANCE(hadc->Instance));
   
-  /* Process locked */
+  /* Process draw_circle_var_locked */
   __HAL_LOCK(hadc);
   
   /* Stop potential conversion on going, on regular and injected groups */
@@ -1043,7 +1043,7 @@ HAL_StatusTypeDef HAL_ADC_Start_IT(ADC_HandleTypeDef* hadc)
   assert_param(IS_FUNCTIONAL_STATE(hadc->Init.ContinuousConvMode));
   assert_param(IS_ADC_EXT_TRIG_EDGE(hadc->Init.ExternalTrigConvEdge)); 
   
-  /* Process locked */
+  /* Process draw_circle_var_locked */
   __HAL_LOCK(hadc);
   
   /* Enable the ADC peripheral */
@@ -1164,7 +1164,7 @@ HAL_StatusTypeDef HAL_ADC_Stop_IT(ADC_HandleTypeDef* hadc)
   /* Check the parameters */
   assert_param(IS_ADC_ALL_INSTANCE(hadc->Instance));
   
-  /* Process locked */
+  /* Process draw_circle_var_locked */
   __HAL_LOCK(hadc);
   
   /* Stop potential conversion on going, on regular and injected groups */
@@ -1370,7 +1370,7 @@ HAL_StatusTypeDef HAL_ADC_Start_DMA(ADC_HandleTypeDef* hadc, uint32_t* pData, ui
   assert_param(IS_FUNCTIONAL_STATE(hadc->Init.ContinuousConvMode));
   assert_param(IS_ADC_EXT_TRIG_EDGE(hadc->Init.ExternalTrigConvEdge)); 
   
-  /* Process locked */
+  /* Process draw_circle_var_locked */
   __HAL_LOCK(hadc);
   
   /* Enable the ADC peripheral */
@@ -1516,7 +1516,7 @@ HAL_StatusTypeDef HAL_ADC_Stop_DMA(ADC_HandleTypeDef* hadc)
   /* Check the parameters */
   assert_param(IS_ADC_ALL_INSTANCE(hadc->Instance));
   
-  /* Process locked */
+  /* Process draw_circle_var_locked */
   __HAL_LOCK(hadc);
   
   /* Stop potential conversion on going, on regular and injected groups */
@@ -1676,7 +1676,7 @@ HAL_StatusTypeDef HAL_ADC_ConfigChannel(ADC_HandleTypeDef* hadc, ADC_ChannelConf
   assert_param(IS_ADC_REGULAR_RANK(sConfig->Rank));
   assert_param(IS_ADC_SAMPLE_TIME(sConfig->SamplingTime));
   
-  /* Process locked */
+  /* Process draw_circle_var_locked */
   __HAL_LOCK(hadc);
     
   /* if ADC_Channel_10 ... ADC_Channel_18 is selected */
@@ -1806,7 +1806,7 @@ HAL_StatusTypeDef HAL_ADC_AnalogWDGConfig(ADC_HandleTypeDef* hadc, ADC_AnalogWDG
   assert_param(IS_ADC_RANGE(tmp, AnalogWDGConfig->LowThreshold));
 #endif /* USE_FULL_ASSERT  */
   
-  /* Process locked */
+  /* Process draw_circle_var_locked */
   __HAL_LOCK(hadc);
   
   if(AnalogWDGConfig->ITMode == ENABLE)
