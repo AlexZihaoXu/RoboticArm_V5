@@ -85,12 +85,13 @@ void addMenuOption(const char *name, int (*runPtr)(double, double), int (*settin
 #include "menu_features/calibrate_feature.h"
 #include "menu_features/music_feature_nyan_cat.h"
 #include "menu_features/music_feature_rick_roll.h"
+#include "menu_features/free_motors_feature.h"
 
 void initMenu()
 {
     addMenuOption("Medication", 0, 0);
-    addMenuOption("Free move", 0, 0);
-    addMenuOption("Calibrate", calibrateFeatureRun, calibrateFeatureSettings);
+    addMenuOption("Free Motors", free_motors_feature, 0);
+    addMenuOption("Calibrate", calibrateFeatureRun, 0);
     addMenuOption("Alarm", alarmFun, 0);
     addMenuOption("Music: NC", music_feature_nyan_cat_run, music_feature_nyan_cat_settings);
     addMenuOption("Music: RR", music_feature_rick_roll_run, music_feature_rick_roll_settings);

@@ -6,6 +6,7 @@
 double ext_power_supply_delay_counter = 0;
 
 int lastState = 0;
+int force_power_off = 0;
 
 void tick_ext_power_supply(double now, double dt)
 {
@@ -59,7 +60,7 @@ void tick_ext_power_supply(double now, double dt)
         ext_power_supply_delay_counter = 0;
     }
 
-    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, ext_power_supply_delay_counter < 3);
+    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, !((ext_power_supply_delay_counter > 3) && !force_power_off));
 
 }
 
