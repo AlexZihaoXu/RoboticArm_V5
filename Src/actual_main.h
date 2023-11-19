@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <math.h>
 
+#include "ext_power_supply_process.h"
 #include "angle_abstraction.h"
 #include "inverse_kinematics.h"
 #include "v5menu.h"
@@ -22,16 +23,21 @@ void onSetup()
 
 }
 
+long lastUpdate = 0;
+
 
 void onUpdate(long now, long dt)
 {
-////    v5menuTick(now / 1000.0, dt / 1000.0);
-//    char content[16];
-//    sprintf(content, "count: %.2f", highResolutionNow);
-//    delay(100);
-//    LCD_ClearBlocking();
-//    LCD_PrintBlocking(content);
-//
+
+    tick_ext_power_supply(now / 1000.0, dt / 1000.0);
+
+//    if (now - lastUpdate > 1000 / 3) {
+//        lastUpdate = now;
+//        LCD_ClearBlocking();
+//        char content[16];
+//        sprintf(content, "val=%d", rawValues[3]);
+//        LCD_PrintBlocking(content);
+//    }
 
     v5menuTick(now / 1000.0, dt / 1000.0);
     gripperTickMotor(now);

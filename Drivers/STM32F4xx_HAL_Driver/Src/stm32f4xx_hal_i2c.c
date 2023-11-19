@@ -651,7 +651,7 @@ HAL_StatusTypeDef HAL_I2C_RegisterCallback(I2C_HandleTypeDef *hi2c, HAL_I2C_Call
 
     return HAL_ERROR;
   }
-  /* Process draw_circle_var_locked */
+  /* Process locked */
   __HAL_LOCK(hi2c);
 
   if (HAL_I2C_STATE_READY == hi2c->State)
@@ -771,7 +771,7 @@ HAL_StatusTypeDef HAL_I2C_UnRegisterCallback(I2C_HandleTypeDef *hi2c, HAL_I2C_Ca
 {
   HAL_StatusTypeDef status = HAL_OK;
 
-  /* Process draw_circle_var_locked */
+  /* Process locked */
   __HAL_LOCK(hi2c);
 
   if (HAL_I2C_STATE_READY == hi2c->State)
@@ -885,7 +885,7 @@ HAL_StatusTypeDef HAL_I2C_RegisterAddrCallback(I2C_HandleTypeDef *hi2c, pI2C_Add
 
     return HAL_ERROR;
   }
-  /* Process draw_circle_var_locked */
+  /* Process locked */
   __HAL_LOCK(hi2c);
 
   if (HAL_I2C_STATE_READY == hi2c->State)
@@ -917,7 +917,7 @@ HAL_StatusTypeDef HAL_I2C_UnRegisterAddrCallback(I2C_HandleTypeDef *hi2c)
 {
   HAL_StatusTypeDef status = HAL_OK;
 
-  /* Process draw_circle_var_locked */
+  /* Process locked */
   __HAL_LOCK(hi2c);
 
   if (HAL_I2C_STATE_READY == hi2c->State)

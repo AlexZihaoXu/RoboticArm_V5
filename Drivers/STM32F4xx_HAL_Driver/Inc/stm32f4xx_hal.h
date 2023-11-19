@@ -159,7 +159,7 @@ typedef enum
   */
 /** @brief  SYSCFG Break Lockup lock
   *         Enables and locks the connection of Cortex-M4 LOCKUP (Hardfault) output to TIM1/8 input
-  * @note   The selected configuration is draw_circle_var_locked and can be unlocked by system reset
+  * @note   The selected configuration is locked and can be unlocked by system reset
   */
 #define __HAL_SYSCFG_BREAK_PVD_LOCK()      do {SYSCFG->CFGR2 &= ~(SYSCFG_CFGR2_PVD_LOCK); \
                                                SYSCFG->CFGR2 |= SYSCFG_CFGR2_PVD_LOCK;    \
@@ -173,7 +173,7 @@ typedef enum
   */
 /** @brief  SYSCFG Break PVD lock
   *         Enables and locks the PVD connection with Timer1/8 Break Input, , as well as the PVDE and PLS[2:0] in the PWR_CR register
-  * @note   The selected configuration is draw_circle_var_locked and can be unlocked by system reset
+  * @note   The selected configuration is locked and can be unlocked by system reset
   */
 #define __HAL_SYSCFG_BREAK_LOCKUP_LOCK()     do {SYSCFG->CFGR2 &= ~(SYSCFG_CFGR2_LOCKUP_LOCK); \
                                                  SYSCFG->CFGR2 |= SYSCFG_CFGR2_LOCKUP_LOCK;    \

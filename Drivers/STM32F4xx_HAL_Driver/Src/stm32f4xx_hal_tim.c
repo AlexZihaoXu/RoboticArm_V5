@@ -5832,7 +5832,7 @@ HAL_StatusTypeDef HAL_TIM_RegisterCallback(TIM_HandleTypeDef *htim, HAL_TIM_Call
   {
     return HAL_ERROR;
   }
-  /* Process draw_circle_var_locked */
+  /* Process locked */
   __HAL_LOCK(htim);
 
   if (htim->State == HAL_TIM_STATE_READY)
@@ -6070,7 +6070,7 @@ HAL_StatusTypeDef HAL_TIM_UnRegisterCallback(TIM_HandleTypeDef *htim, HAL_TIM_Ca
 {
   HAL_StatusTypeDef status = HAL_OK;
 
-  /* Process draw_circle_var_locked */
+  /* Process locked */
   __HAL_LOCK(htim);
 
   if (htim->State == HAL_TIM_STATE_READY)

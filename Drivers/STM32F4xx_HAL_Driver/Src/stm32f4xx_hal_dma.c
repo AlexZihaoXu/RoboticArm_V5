@@ -411,7 +411,7 @@ HAL_StatusTypeDef HAL_DMA_Start(DMA_HandleTypeDef *hdma, uint32_t SrcAddress, ui
   /* Check the parameters */
   assert_param(IS_DMA_BUFFER_SIZE(DataLength));
 
-  /* Process draw_circle_var_locked */
+  /* Process locked */
   __HAL_LOCK(hdma);
 
   if(HAL_DMA_STATE_READY == hdma->State)
@@ -458,7 +458,7 @@ HAL_StatusTypeDef HAL_DMA_Start_IT(DMA_HandleTypeDef *hdma, uint32_t SrcAddress,
   /* Check the parameters */
   assert_param(IS_DMA_BUFFER_SIZE(DataLength));
  
-  /* Process draw_circle_var_locked */
+  /* Process locked */
   __HAL_LOCK(hdma);
   
   if(HAL_DMA_STATE_READY == hdma->State)
@@ -969,7 +969,7 @@ HAL_StatusTypeDef HAL_DMA_RegisterCallback(DMA_HandleTypeDef *hdma, HAL_DMA_Call
 
   HAL_StatusTypeDef status = HAL_OK;
 
-  /* Process draw_circle_var_locked */
+  /* Process locked */
   __HAL_LOCK(hdma);
 
   if(HAL_DMA_STATE_READY == hdma->State)
@@ -1030,7 +1030,7 @@ HAL_StatusTypeDef HAL_DMA_UnRegisterCallback(DMA_HandleTypeDef *hdma, HAL_DMA_Ca
 {
   HAL_StatusTypeDef status = HAL_OK;
   
-  /* Process draw_circle_var_locked */
+  /* Process locked */
   __HAL_LOCK(hdma);
   
   if(HAL_DMA_STATE_READY == hdma->State)

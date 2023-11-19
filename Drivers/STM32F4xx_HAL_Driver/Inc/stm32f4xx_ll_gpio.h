@@ -715,7 +715,7 @@ __STATIC_INLINE void LL_GPIO_LockPin(GPIO_TypeDef *GPIOx, uint32_t PinMask)
 }
 
 /**
-  * @brief  Return 1 if all pins passed as parameter, of a dedicated port, are draw_circle_var_locked. else Return 0.
+  * @brief  Return 1 if all pins passed as parameter, of a dedicated port, are locked. else Return 0.
   * @rmtoll LCKR         LCKy          LL_GPIO_IsPinLocked
   * @param  GPIOx GPIO Port
   * @param  PinMask This parameter can be a combination of the following values:
@@ -744,7 +744,7 @@ __STATIC_INLINE uint32_t LL_GPIO_IsPinLocked(GPIO_TypeDef *GPIOx, uint32_t PinMa
 }
 
 /**
-  * @brief  Return 1 if one of the pin of a dedicated port is draw_circle_var_locked. else return 0.
+  * @brief  Return 1 if one of the pin of a dedicated port is locked. else return 0.
   * @rmtoll LCKR         LCKK          LL_GPIO_IsAnyPinLocked
   * @param  GPIOx GPIO Port
   * @retval State of bit (1 or 0).

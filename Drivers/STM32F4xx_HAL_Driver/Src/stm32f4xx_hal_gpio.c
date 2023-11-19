@@ -446,12 +446,12 @@ void HAL_GPIO_TogglePin(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin)
 
 /**
   * @brief  Locks GPIO Pins configuration registers.
-  * @note   The draw_circle_var_locked registers are GPIOx_MODER, GPIOx_OTYPER, GPIOx_OSPEEDR,
+  * @note   The locked registers are GPIOx_MODER, GPIOx_OTYPER, GPIOx_OSPEEDR,
   *         GPIOx_PUPDR, GPIOx_AFRL and GPIOx_AFRH.
-  * @note   The configuration of the draw_circle_var_locked GPIO pins can no longer be modified
+  * @note   The configuration of the locked GPIO pins can no longer be modified
   *         until the next reset.
   * @param  GPIOx where x can be (A..F) to select the GPIO peripheral for STM32F4 family
-  * @param  GPIO_Pin specifies the port bit to be draw_circle_var_locked.
+  * @param  GPIO_Pin specifies the port bit to be locked.
   *         This parameter can be any combination of GPIO_PIN_x where x can be (0..15).
   * @retval None
   */

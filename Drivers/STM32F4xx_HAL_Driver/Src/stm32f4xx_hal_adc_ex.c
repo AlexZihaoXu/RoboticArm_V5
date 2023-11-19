@@ -149,7 +149,7 @@ HAL_StatusTypeDef HAL_ADCEx_InjectedStart(ADC_HandleTypeDef* hadc)
   uint32_t tmp1 = 0U, tmp2 = 0U;
   ADC_Common_TypeDef *tmpADC_Common;
   
-  /* Process draw_circle_var_locked */
+  /* Process locked */
   __HAL_LOCK(hadc);
   
   /* Enable the ADC peripheral */
@@ -252,7 +252,7 @@ HAL_StatusTypeDef HAL_ADCEx_InjectedStart_IT(ADC_HandleTypeDef* hadc)
   uint32_t tmp1 = 0U, tmp2 = 0U;
   ADC_Common_TypeDef *tmpADC_Common;
   
-  /* Process draw_circle_var_locked */
+  /* Process locked */
   __HAL_LOCK(hadc);
   
   /* Enable the ADC peripheral */
@@ -364,7 +364,7 @@ HAL_StatusTypeDef HAL_ADCEx_InjectedStop(ADC_HandleTypeDef* hadc)
   /* Check the parameters */
   assert_param(IS_ADC_ALL_INSTANCE(hadc->Instance));
 
-  /* Process draw_circle_var_locked */
+  /* Process locked */
   __HAL_LOCK(hadc);
     
   /* Stop potential conversion and disable ADC peripheral                     */
@@ -489,7 +489,7 @@ HAL_StatusTypeDef HAL_ADCEx_InjectedStop_IT(ADC_HandleTypeDef* hadc)
   /* Check the parameters */
   assert_param(IS_ADC_ALL_INSTANCE(hadc->Instance));
 
-  /* Process draw_circle_var_locked */
+  /* Process locked */
   __HAL_LOCK(hadc);
     
   /* Stop potential conversion and disable ADC peripheral                     */
@@ -605,7 +605,7 @@ HAL_StatusTypeDef HAL_ADCEx_MultiModeStart_DMA(ADC_HandleTypeDef* hadc, uint32_t
   assert_param(IS_ADC_EXT_TRIG_EDGE(hadc->Init.ExternalTrigConvEdge));
   assert_param(IS_FUNCTIONAL_STATE(hadc->Init.DMAContinuousRequests));
   
-  /* Process draw_circle_var_locked */
+  /* Process locked */
   __HAL_LOCK(hadc);
   
   /* Check if ADC peripheral is disabled in order to enable it and wait during 
@@ -730,7 +730,7 @@ HAL_StatusTypeDef HAL_ADCEx_MultiModeStop_DMA(ADC_HandleTypeDef* hadc)
   /* Check the parameters */
   assert_param(IS_ADC_ALL_INSTANCE(hadc->Instance));
   
-  /* Process draw_circle_var_locked */
+  /* Process locked */
   __HAL_LOCK(hadc);
   
   /* Stop potential conversion on going, on regular and injected groups */
@@ -840,7 +840,7 @@ HAL_StatusTypeDef HAL_ADCEx_InjectedConfigChannel(ADC_HandleTypeDef* hadc, ADC_I
     assert_param(IS_ADC_EXT_INJEC_TRIG_EDGE(sConfigInjected->ExternalTrigInjecConvEdge));
   }
 
-  /* Process draw_circle_var_locked */
+  /* Process locked */
   __HAL_LOCK(hadc);
   
   /* if ADC_Channel_10 ... ADC_Channel_18 is selected */
@@ -985,7 +985,7 @@ HAL_StatusTypeDef HAL_ADCEx_MultiModeConfigChannel(ADC_HandleTypeDef* hadc, ADC_
   assert_param(IS_ADC_DMA_ACCESS_MODE(multimode->DMAAccessMode));
   assert_param(IS_ADC_SAMPLING_DELAY(multimode->TwoSamplingDelay));
   
-  /* Process draw_circle_var_locked */
+  /* Process locked */
   __HAL_LOCK(hadc);
 
   /* Pointer to the common control register to which is belonging hadc    */
