@@ -9,9 +9,12 @@
 #include "inverse_kinematics.h"
 #include "v5menu.h"
 
+
 void onSetup()
 {
     LCD_Init();
+
+    gripperHoming();
 
     HAL_TIM_Base_Start(&htim1);
     angleAbstractionInit();
@@ -23,21 +26,10 @@ void onSetup()
 
 }
 
-long lastUpdate = 0;
-
-
 void onUpdate(long now, long dt)
 {
 
     tick_ext_power_supply(now / 1000.0, dt / 1000.0);
-
-//    if (now - lastUpdate > 1000 / 3) {
-//        lastUpdate = now;
-//        LCD_ClearBlocking();
-//        char content[16];
-//        sprintf(content, "val=%d", rawValues[3]);
-//        LCD_PrintBlocking(content);
-//    }
 
     v5menuTick(now / 1000.0, dt / 1000.0);
     gripperTickMotor(now);

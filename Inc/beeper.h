@@ -1,6 +1,3 @@
-//
-// Created by Alex on 2023-10-29.
-//
 
 #ifndef ROBOTICARM_V4_BEEPER_H
 #define ROBOTICARM_V4_BEEPER_H

@@ -21,7 +21,7 @@ int drawCircleFeature(double now, double dt)
     }
 
     double speed = 1.25;
-    setPosition(sin(now * speed) * draw_circle_var_radius, 12 + draw_circle_var_radius + cos(now * speed) * draw_circle_var_radius, 5);
+    setPosition(sin(now * speed) * draw_circle_var_radius, 11 + draw_circle_var_radius + cos(now * speed) * draw_circle_var_radius, 5);
 
     sprintf(LCD_CONTENT_BUFFER[0], "Drawing Circle..");
     sprintf(LCD_CONTENT_BUFFER[1], "");
@@ -53,8 +53,8 @@ int drawCircleSettings(double now, double dt)
     }
     if (draw_circle_var_locked) {
         if (abs(joystickY) > .05) {
-            draw_circle_var_radius += joystickY * dt;
-            draw_circle_var_radius = min(8, max(4, draw_circle_var_radius));
+            draw_circle_var_radius += joystickY * dt * 1.25;
+            draw_circle_var_radius = min(9, max(3, draw_circle_var_radius));
         }
     } else if (joystickX < -0.7) {
         return MENU_BACK;

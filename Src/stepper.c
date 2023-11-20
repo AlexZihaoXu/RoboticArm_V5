@@ -158,7 +158,7 @@ void gripperOpen()
 {
     if (!gripperClosed) return;
     GripperCache.record = 0;
-    GripperCache.target = -900;
+    GripperCache.target = -1000;
     gripperClosed = 0;
 }
 
@@ -166,7 +166,7 @@ void gripperClose()
 {
     if (gripperClosed) return;
     GripperCache.record = 0;
-    GripperCache.target = 1400;
+    GripperCache.target = 1500;
     gripperClosed = 1;
 }
 
@@ -184,15 +184,19 @@ void gripperHoming()
         stepGripper(-1);
         HAL_Delay(1);
     }
-    for (int i = 0; i < 1200; ++i) {
+    for (int i = 0; i < 1000; ++i) {
         stepGripper(1);
         HAL_Delay(1);
+    }
+    for (int i = 0; i < 300; ++i) {
+        stepGripper(1);
+        HAL_Delay(2);
     }
 }
 
 void gripperTickMotor(int now)
 {
-    if (now - lastGripperTick >= 2) {
+    if (now - lastGripperTick >= 3) {
         lastGripperTick = now;
         if (GripperCache.target > GripperCache.record) {
             GripperCache.record++;
